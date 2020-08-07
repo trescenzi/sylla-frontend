@@ -1,13 +1,13 @@
 <script>
   import {generateNames} from '../helpers/sylla-api.js';
   let numNames = 10;
-  let numSyllables = 3;
+  let numSyllablesPerName = 3;
   let names = [];
 
   function handleSubmit(event) {
     event.preventDefault();
     generateNames({
-      numSyllables,
+      numSyllablesPerName,
       numNames,
     }).then(ns => names = ns);
   }
@@ -26,7 +26,7 @@
 
 <form on:submit={handleSubmit}>
   <label>
-    Number of Syllables: <input type="number" name="numSyllables" bind:value={numSyllables} />
+    Number of Syllables: <input type="number" name="numSyllables" bind:value={numSyllablesPerName} />
   </label>
   <label>
     Number of Names: <input type="number" name="numNames" bind:value={numNames} />
