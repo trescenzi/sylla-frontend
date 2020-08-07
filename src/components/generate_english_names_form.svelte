@@ -20,6 +20,7 @@
     column-gap: .5em;
     font-size: 1.25em;
     grid-template-columns: repeat( auto-fit, minmax(100px, max-content) );
+    text-transform: capitalize;
   }
 </style>
 
