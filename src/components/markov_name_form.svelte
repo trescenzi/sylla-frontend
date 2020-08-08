@@ -5,27 +5,35 @@
   let maxSyllablesPerName = 4;
   let minSyllablesPerName = 2;
   let names = [];
+  let nameSeeds = undefined;
 
   function handleSubmit(event) {
-    event.preventDefault();
-    generateMarkovNames({
+    const input = {
       maxSyllablesPerName,
       minSyllablesPerName,
       numNames,
-    }).then(ns => names = ns);
+    };
+    if (nameSeeds && nameSeeds.length > 1) {
+      input.nameSeeds = nameSeeds;
+    }
+    event.preventDefault();
+    generateMarkovNames(input).then(ns => names = ns);
   }
 </script>
 
 
 <form on:submit={handleSubmit}>
   <label>
-    Min Syllables Per Name: <input type="number" name="numSyllables" bind:value={minSyllablesPerName} />
+    Min Syllables Per Name: <input type="number" name="minSyllablesPerName" bind:value={minSyllablesPerName} />
   </label>
   <label>
-    Max Syllables Per Name: <input type="number" name="numSyllables" bind:value={maxSyllablesPerName} />
+    Max Syllables Per Name: <input type="number" name="maxSyllablesPerName" bind:value={maxSyllablesPerName} />
   </label>
   <label>
     Number of Names: <input type="number" name="numNames" bind:value={numNames} />
+  </label>
+  <label>
+    Seed Names(comma seperated): <textarea name="nameSeed" bind:value={nameSeeds} />
   </label>
   <button>Generate Names</button>
 </form>
