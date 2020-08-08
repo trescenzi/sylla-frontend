@@ -30,6 +30,14 @@
 	const dispatch = createEventDispatcher();
 
 	const letters = {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
+
+  // source: https://stackoverflow.com/a/2117523
+  function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
 	
 	export let word = '';
 	let wordLetters = [];
@@ -39,6 +47,7 @@
       {
         visible: false,
         component: letters[letter],
+        id: uuidv4(), 
       },
     ], []);
 
@@ -48,7 +57,7 @@
     await tick();
     if (wordLetters.length) {
       wordLetters = [];
-      setTimeout(() => kickOffAnimation(word), 1750);
+      setTimeout(() => kickOffAnimation(word), 1500);
     } else {
       kickOffAnimation(word);
     }
@@ -62,7 +71,7 @@
 			}
 			setTimeout(() => animateLoop(i+1), 250)
     } else if (i !== 0 && i === wordLetters.length) {
-      setTimeout(() => dispatch('end'), 2300);
+      setTimeout(() => dispatch('end'), 1500);
     }
 	}
 
@@ -77,7 +86,7 @@
 </style>
 
 <div class="word">
-	{#each wordLetters as letter}
+	{#each wordLetters as letter (letter.id)}
 		{#if letter.visible}
       <svelte:component 
         width={40} 
