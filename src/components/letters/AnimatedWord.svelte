@@ -25,7 +25,7 @@
 	import X from './x.svelte';
 	import Y from './y.svelte';
 	import Z from './z.svelte';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, tick } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -44,7 +44,8 @@
 
     animateLoop();
   }
-	function animateWord(word) {
+	async function animateWord(word) {
+    await tick();
     if (wordLetters.length) {
       wordLetters = [];
       setTimeout(() => kickOffAnimation(word), 1750);
